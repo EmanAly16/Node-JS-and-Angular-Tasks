@@ -3,6 +3,7 @@ const tableBody = document.querySelector("#tableBody")
 
 const tableHead = ['name', 'accNum', 'intialBalance', 'address']
 
+
 const readDataFromStorage = (storageKey) => {
     let arrData
     try {
@@ -19,11 +20,26 @@ const writeDataToStorage = (arrData, storageKey) => {
     }
     //let data = []
 
+let accCheck = []
+let acc
 const formSubmit = function(elment) {
     elment.preventDefault()
+
+    // Primary ID by random
+    culc: while (true) {
+        acc = Math.floor(Math.random() * 10001);
+        if (accCheck[acc] == 1) {
+            continue culc;
+        } else {
+            accCheck[acc] = 1
+        }
+        break;
+    }
+
+
     let item = {
         name: this.elements.name.value,
-        accNum: this.elements.accNum.value,
+        accNum: acc,
         intialBalance: this.elements.intialBalance.value,
         address: this.elements.address.value,
 
