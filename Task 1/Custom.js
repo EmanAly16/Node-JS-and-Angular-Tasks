@@ -1,9 +1,11 @@
 const addCustomer = document.querySelector("#addCustomer")
 const tableBody = document.querySelector("#tableBody")
+const showBody = document.querySelector("#showBody")
+const editCustomer = document.querySelector("editCustomer")
 
 const tableHead = ['name', 'accNum', 'intialBalance', 'address']
 
-
+const editHead = ['name', 'intialBalance', 'address']
 const readDataFromStorage = (storageKey) => {
     let arrData
     try {
@@ -68,7 +70,12 @@ const delCustomer = (data, i) => {
     showAll()
 }
 
-const showSingle = (customer, i, data) => {
+const storeId = (index, htmlSrc) => {
+    localStorage.setItem("showId", index)
+    window.location.href = htmlSrc
+}
+
+const showSingle = (customer, i, data, tableBody) => {
     const tr = creatMyOwnElements(tableBody, "tr", null, null)
     creatMyOwnElements(tr, "td", i + 1, null)
     tableHead.forEach(head => creatMyOwnElements(tr, "td", customer[head], null))
@@ -77,12 +84,15 @@ const showSingle = (customer, i, data) => {
     const editBtn = creatMyOwnElements(actionTD, "button", "Edit", "btn btn-warning me-2")
     const delBtn = creatMyOwnElements(actionTD, "button", "Delete", "btn btn-danger me-2")
     delBtn.addEventListener("click", () => { delCustomer(data, i) })
+    showBtn.addEventListener("click", () => { storeId(customer[tableHead[1]], "showCustomer.html") })
+    editBtn.addEventListener("click", () => { storeId(customer[tableHead[1]], "editCustomer.html") })
 }
 
 showAll = () => {
     tableBody.innerHTML = ""
     const data = readDataFromStorage("data")
-    data.forEach((customer, index) => showSingle(customer, index, data))
+    console.log(data)
+    data.forEach((customer, index) => showSingle(customer, index, data, tableBody))
 }
 
 
@@ -91,3 +101,37 @@ if (addCustomer) {
         //showAll()
 }
 if (tableBody) showAll()
+
+
+if (showBody) {
+    const data = readDataFromStorage("data")
+    const acc = parseInt(localStorage.getItem("showId"))
+    const index = data.findIndex(function(t, ind) {
+        if (t.accNum == acc)
+            return true
+    })
+    console.log(index)
+    const customer = data[index]
+    showSingle(customer, index, data, showBody)
+}
+
+if (editCustomer) {
+    // const data = readDataFromStorage("data")
+    // const acc = parseInt(localStorage.getItem("showId"))
+    // const index = data.findIndex(function(t, ind) {
+    //     if (t.accNum == acc) {
+    //         console.log(1)
+    //         return true
+    //     }
+    // })
+    // console.log(index)
+    // tableHead.forEach(key => editCustomer.elements[key].value = data[index][key])
+
+    // editCustomer.addEventListener("submit", function(e) {
+    //     e.preventDefault()
+    //     editHead.forEach(key => data[index][key] = e.target.elements[key].value)
+    //     writeDataToStorage(data, "data")
+    //     this.reset()
+    //     window.location.href = "index.html"
+    // })
+}
