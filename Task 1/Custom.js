@@ -1,7 +1,7 @@
 const addCustomer = document.querySelector("#addCustomer")
 const tableBody = document.querySelector("#tableBody")
 const showBody = document.querySelector("#showBody")
-const editCustomer = document.querySelector("editCustomer")
+const editCustomer = document.querySelector("#editCustomer")
 
 const tableHead = ['name', 'accNum', 'intialBalance', 'address']
 
@@ -116,22 +116,24 @@ if (showBody) {
 }
 
 if (editCustomer) {
-    // const data = readDataFromStorage("data")
-    // const acc = parseInt(localStorage.getItem("showId"))
-    // const index = data.findIndex(function(t, ind) {
-    //     if (t.accNum == acc) {
-    //         console.log(1)
-    //         return true
-    //     }
-    // })
-    // console.log(index)
-    // tableHead.forEach(key => editCustomer.elements[key].value = data[index][key])
+    const data = readDataFromStorage("data")
+    const acc = parseInt(localStorage.getItem("showId"))
+    console.log(acc)
+    const index = data.findIndex(function(t, ind) {
+            // console.log(t)
+            if (t.accNum == acc) {
+                // console.log(1)
+                return true
+            }
+        })
+        //console.log(index)
+    editHead.forEach(key => editCustomer.elements[key].value = data[index][key])
 
-    // editCustomer.addEventListener("submit", function(e) {
-    //     e.preventDefault()
-    //     editHead.forEach(key => data[index][key] = e.target.elements[key].value)
-    //     writeDataToStorage(data, "data")
-    //     this.reset()
-    //     window.location.href = "index.html"
-    // })
+    editCustomer.addEventListener("submit", function(e) {
+        e.preventDefault()
+        editHead.forEach(key => data[index][key] = e.target.elements[key].value)
+        writeDataToStorage(data, "data")
+        this.reset()
+        window.location.href = "index.html"
+    })
 }
