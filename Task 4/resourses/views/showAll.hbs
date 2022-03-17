@@ -1,0 +1,41 @@
+{{>header}}
+
+<section class="my-5 container">
+    <div class="row mb-3 justifiy-content-end">
+        <a href="/add" class="btn btn-success col-2">Add New User</a>
+    </div>
+    <table class="table table-bordered">
+         <thead class="thead-dark">
+            <tr>
+                <th>AccNum</th>
+                <th>Name</th>
+                <th>Intial Balance</th>
+                <th>Remainig Balance</th>
+                <th>Operations</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            {{#each customers}}
+            <tr>
+                <td>{{this.accNum}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.intialBalance}}</td>
+                <td>{{this.remainigBalance}}</td>
+                <td>{{this.operation}}</td>
+
+                <td>
+                    <a href="/show/{{this.accNum}}" class="btn btn-info mx-2">Show</a>
+                    <a href="/delete/{{this.accNum}}" class="btn btn-danger mx-2">Delete</a>
+                    <a href="/op/{{this.accNum}}" class="btn btn-dark mx-2">Operation</a>
+
+                </td>
+            </tr>
+          {{/each}}
+          
+        </tbody>
+    </table>
+</section>
+
+{{>footer}}
