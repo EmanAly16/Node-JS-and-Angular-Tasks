@@ -4,13 +4,36 @@
     <div class="row mb-3 justifiy-content-end">
         
         <div class="border border-primary border-4 p-4 m-4">
-            <h3>ID: {{customer.accNum}}</h3>
+            <h3>ID: {{customer._id}}</h3>
             <h3>Name: {{customer.name}}</h3>
             <h3>Intial Balance: {{customer.intialBalance}}</h3>
             <h3>Remainig Balance: {{customer.remainigBalance}}</h3>
-            <h3>Operations: {{customer.operation}}</h3>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Operation Type</th>
+                        <th>Value</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                {{#if isEmpty}}
+                <tr class="alert alert-danger">
+                    <td colspan="3" class="text-center">No Operations yet</td>
+                </tr>
+                {{else}}
+                    {{#each customer.operation}}
+                    <tr>
+                    <td>{{this.type}}</td>
+                    <td>{{this.val}}</td>
+                    </tr>
+                    {{/each}}
+                {{/if}}
+                </tbody>
+            </table>
         </div>
-
+        
+    
     </div>
 </section>
 {{>footer}}

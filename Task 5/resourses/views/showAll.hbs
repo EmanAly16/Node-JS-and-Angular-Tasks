@@ -11,28 +11,32 @@
                 <th>Name</th>
                 <th>Intial Balance</th>
                 <th>Remainig Balance</th>
-                <th>Operations</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-          
+            {{#if isEmpty}}
+            <tr class="alert alert-danger">
+                <td colspan="5" class="text-center">No Customers yet</td>
+            </tr>
+            {{else}}
             {{#each customers}}
             <tr>
-                <td>{{this.accNum}}</td>
+                <td>{{this._id}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.intialBalance}}</td>
                 <td>{{this.remainigBalance}}</td>
-                <td>{{this.operation}}</td>
+               
 
                 <td>
-                    <a href="/show/{{this.accNum}}" class="btn btn-info mx-2">Show</a>
-                    <a href="/delete/{{this.accNum}}" class="btn btn-danger mx-2">Delete</a>
-                    <a href="/op/{{this.accNum}}" class="btn btn-dark mx-2">Operation</a>
+                    <a href="/show/{{this._id}}" class="btn btn-info mx-2">Show</a>
+                    <a href="/delete/{{this._id}}" class="btn btn-danger mx-2">Delete</a>
+                    <a href="/op/{{this._id}}" class="btn btn-dark mx-2">Operation</a>
 
                 </td>
             </tr>
-          {{/each}}
+            {{/each}}
+          {{/if}}
           
         </tbody>
     </table>
