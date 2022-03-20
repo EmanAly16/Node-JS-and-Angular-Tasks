@@ -8,7 +8,34 @@
             <h3>Name: {{customer.name}}</h3>
             <h3>Intial Balance: {{customer.intialBalance}}</h3>
             <h3>Remainig Balance: {{customer.remainigBalance}}</h3>
-            <h3>Operations: {{customer.operation}}</h3>
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Operation Type</th>
+                        <th>Value</th>
+                        <th>At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#if isEmpty}}
+                <tr class="alert alert-danger">
+                    <td colspan="3" class="text-center">No Operations yet</td>
+                </tr>
+                {{else}}
+          
+            {{#each customer.operation}}
+            <tr>
+            {{#each this}}
+            <td>
+            {{this}}
+            </td>
+            {{/each}}
+           </tr>
+            {{/each}}
+             
+             {{/if}}
+              </tbody>
+            </table>
         </div>
 
     </div>

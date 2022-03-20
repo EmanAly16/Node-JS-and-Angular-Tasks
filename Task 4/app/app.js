@@ -12,6 +12,10 @@ app.use(express.static(staticDir))
 app.set("view engine", "hbs")
 app.set("views", viewsDir)
 hbs.registerPartials(layoutsDir)
-app.use(customerRoutes) //app.use("/users",userRoutes)
-
+app.use(customerRoutes)
+app.get("*", (req, res) => {
+    res.render("errNotFound", {
+        pageTitle: "Not found"
+    })
+})
 module.exports = app

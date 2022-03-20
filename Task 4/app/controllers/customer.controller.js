@@ -28,15 +28,19 @@ const showAll = (req, res) => {
     res.render("showAll", {
         pageTitle: "All Customers",
         customers,
+        isEmpty: customers.length == 0 ? true : false
     })
 
 }
 const show = (req, res) => {
     const customers = dealWithJson.readData()
     let customer = customers.find(cust => cust.accNum == req.params.id)
+        //console.log(customer.operation[0][0])
     res.render("show", {
         pageTitle: "Show Customer",
         customer,
+        isEmpty: customer.operation.length == 0 ? true : false
+
     })
 
 }
@@ -50,17 +54,19 @@ const delSingle = (req, res) => {
 
 const customerOp = (req, res) => {
 
-    let operationData = {
-        type: req.query.type,
-        val: parseInt(req.query.val),
-
-    }
+    let operationData = [
+        req.query.type,
+        parseInt(req.query.val),
+    ]
     if (req.query.type && req.query.val) {
         const customers = dealWithJson.readData()
         let i = customers.findIndex(c => c.accNum == req.params.id)
-        customers[i].operation.push(JSON.stringify({...operationData,
-            at: Date.now()
-        }))
+            // customers[i].operation.push(JSON.stringify({...operationData,
+            //     at: Date.now()
+            // }))
+        let date = Date(Date.now())
+        customers[i].operation.push([...operationData, date.toString()])
+        console.log(customers[i].operation)
         const val = parseInt(req.query.val)
         if (req.query.type == "add") {
             if (val < 6000)

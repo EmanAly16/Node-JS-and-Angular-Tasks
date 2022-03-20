@@ -11,19 +11,21 @@
                 <th>Name</th>
                 <th>Intial Balance</th>
                 <th>Remainig Balance</th>
-                <th>Operations</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-          
+             {{#if isEmpty}}
+            <tr class="alert alert-danger">
+                <td colspan="5" class="text-center">No Customers yet</td>
+            </tr>
+            {{else}}
             {{#each customers}}
             <tr>
                 <td>{{this.accNum}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.intialBalance}}</td>
                 <td>{{this.remainigBalance}}</td>
-                <td>{{this.operation}}</td>
 
                 <td>
                     <a href="/show/{{this.accNum}}" class="btn btn-info mx-2">Show</a>
@@ -33,6 +35,7 @@
                 </td>
             </tr>
           {{/each}}
+          {{/if}}
           
         </tbody>
     </table>
