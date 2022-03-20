@@ -15,5 +15,9 @@ hbs.registerPartials(layoutsDir)
 app.use(express.urlencoded({ extended: true }))
 
 app.use(customerRoutes)
-
+app.get("*", (req, res) => {
+    res.render("errNotFound", {
+        pageTitle: "Not found"
+    })
+})
 module.exports = app

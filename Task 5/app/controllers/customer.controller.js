@@ -89,7 +89,8 @@ const customerOpLogic = (req, res) => {
                     //console.log(resVal)
                 connection.collection("customer").updateOne({ _id: new ObjectId(req.params.id) }, { $set: { remainigBalance: resVal } })
                     .then(() => {
-                        connection.collection("customer").updateOne({ _id: new ObjectId(req.params.id) }, { $push: { operation: { $each: [{ "type": "add", "val": val }] } } })
+                        let date = Date(Date.now())
+                        connection.collection("customer").updateOne({ _id: new ObjectId(req.params.id) }, { $push: { operation: { $each: [{ "type": "add", "val": val, "at": date.toString() }] } } })
                         res.redirect("/")
                     })
                     .catch(e => res.send(e))
@@ -101,7 +102,8 @@ const customerOpLogic = (req, res) => {
                     let resVal = parseInt(customer.remainigBalance) - val
                     connection.collection("customer").updateOne({ _id: new ObjectId(req.params.id) }, { $set: { remainigBalance: resVal } })
                         .then(() => {
-                            connection.collection("customer").updateOne({ _id: new ObjectId(req.params.id) }, { $push: { operation: { $each: [{ "type": "withdraw", "val": val }] } } })
+                            let date = Date(Date.now())
+                            connection.collection("customer").updateOne({ _id: new ObjectId(req.params.id) }, { $push: { operation: { $each: [{ "type": "withdraw", "val": val, "at": date.toString() }] } } })
                             res.redirect("/")
                         })
                         .catch(e => res.send(e))
